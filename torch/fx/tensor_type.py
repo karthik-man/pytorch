@@ -14,21 +14,21 @@ class TensorType:
                 return torch.add(x, y)
     """
 
-    def __init__(self, dim):
+    def __init__(self, dim) -> None:
         self.__origin__ = TensorType
         self.__args__ = dim
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"TensorType[{self.__args__}]"
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         if isinstance(other, self.__class__):
             return list(self.__args__) == list(other.__args__)
         else:
             return False
 
     @staticmethod
-    def __class_getitem__(*args):
+    def __class_getitem__(*args) -> "TensorType":
         if len(args) == 1 and isinstance(args[0], tuple):
             args = args[0]
         return TensorType(tuple(args))
@@ -42,13 +42,13 @@ class _DynType:
     def __init__(self) -> None:
         self.__name__ = "_DynType"
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return isinstance(other, self.__class__)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "Dyn"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "Dyn"
 
 
@@ -56,7 +56,7 @@ Dyn = _DynType()
 
 
 @compatibility(is_backward_compatible=False)
-def is_consistent(t1, t2):
+def is_consistent(t1, t2) -> bool:
     """
     A binary relation denoted by ~ that determines if t1 is consistent with t2.
     The relation is reflexive, symmetric but not transitive.
@@ -84,7 +84,7 @@ def is_consistent(t1, t2):
 
 
 @compatibility(is_backward_compatible=False)
-def is_more_precise(t1, t2):
+def is_more_precise(t1, t2) -> bool:
     """
     A binary relation denoted by <= that determines if t1 is more precise than t2.
     The relation is reflexive and transitive.

@@ -1,16 +1,17 @@
 # mypy: allow-untyped-defs
 import sys
+from typing import Any
 
 import torch
 from torch._logging import LazyString
 
 
-def lazy_format_graph_code(name, gm, maybe_id=None, **kwargs):
+def lazy_format_graph_code(name, gm, maybe_id=None, **kwargs) -> LazyString:  # pyrefly: ignore[implicit-any]
     """
     Returns a LazyString that formats the graph code.
     """
 
-    def format_name():
+    def format_name() -> str:
         if maybe_id is not None:
             return f"{name} {maybe_id}"
         else:
@@ -35,14 +36,14 @@ def lazy_format_graph_code(name, gm, maybe_id=None, **kwargs):
     )
 
 
-def _format_graph_code(name, filename, graph_str):
+def _format_graph_code(name, filename, graph_str) -> str:
     """
     Returns a string that formats the graph code.
     """
     return f"TRACED GRAPH\n {name} {filename} {graph_str}\n"
 
 
-def first_call_function_nn_module_stack(graph: torch.fx.Graph) -> dict | None:
+def first_call_function_nn_module_stack(graph: torch.fx.Graph) -> dict[str, Any] | None:
     """
     Returns the nn_module_stack of the first call_function node.
     """
