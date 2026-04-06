@@ -38,7 +38,6 @@ static inline ExprPtr newBinaryOpOfType(
       return alloc<Rshift>(lhs, rhs);
     default:
       TORCH_INTERNAL_ASSERT(false, "unsupported expr_type: ", static_cast<int>(expr_type));
-      return nullptr;
   }
 }
 
